@@ -8,8 +8,11 @@ Tải intellij -> setup
 
 Clone repo: git clone -b master https://github.com/ShimeharuTenko/tmdt.git (nhớ chọn java/jdk 21)
 
-thêm file .env vào (nhớ xóa tên chỉ để mỗi .env) vào cùng level với build.gradle
+Thêm file .env vào (nhớ xóa tên chỉ để mỗi .env) vào cùng level với build.gradle
 -> run code 
+
+<img width="519" height="496" alt="image" src="https://github.com/user-attachments/assets/da477da8-57a9-49af-8190-ab09c988006a" />
+
 
 api docs: https://www.notion.so/TMDT-2a31424a1c67807d8219e1ab0eb97c6d
 
