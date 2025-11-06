@@ -12,3 +12,6 @@ thêm file .env vào (nhớ xóa tên chỉ để mỗi .env) vào cùng level v
 -> run code 
 
 api docs: https://www.notion.so/TMDT-2a31424a1c67807d8219e1ab0eb97c6d
+
+api endpoint:
+http://localhost:8080/api/auth/...
