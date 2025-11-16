@@ -38,7 +38,7 @@ public class User {
     @Column(name = "full_name", length = 100, nullable = false)
     private String fullName;
 
-    @Column(name = "email", length = 150, nullable = false, unique = true)
+    @Column(name = "email", length = 255, nullable = false, unique = true)
     private String email;
 
     @Column(name = "phone", length = 20, unique = true)
@@ -166,6 +166,6 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
-    public enum Role { CUSTOMER, ADMIN }
+    public enum Role { CUSTOMER, ADMIN, STAFF }
 }
 
