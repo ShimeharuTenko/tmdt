@@ -32,6 +32,7 @@ public class ProductService {
         dto.setIsPublished(product.getIsPublished());
         dto.setShortDescription(product.getShortDescription());
         dto.setThumbnail(product.getThumbnail());
+        dto.setStock(product.getStock());
 
         // Images
         if (product.getImages() != null) {

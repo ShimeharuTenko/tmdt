@@ -27,7 +27,7 @@ public class AuthController {
 
     // Login with Email
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody LoginRequestDTO request) {
+    public ResponseEntity<?> loginUser(@RequestBody LoginRequestDTO request) {
         return authService.loginUser(request);
     }
 

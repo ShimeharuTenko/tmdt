@@ -17,9 +17,10 @@ public class JwtUtil {
 
 
     // Method to generate the JWT token using the private key
-    public String generateToken(String userId) {
+    public String generateToken(String userId, String role) {
         Claims claims = Jwts.claims().setSubject(userId);  // Set the user email as subject
         claims.put("userId", userId);  // Add userId to the token claims
+        claims.put("role", role);
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + EXPIRATION_TIME);  // Set token expiration time
@@ -45,12 +46,27 @@ public class JwtUtil {
     }
 
     // Extract userId from the token
-    public String extractUserId(String token) {
-        Claims claims = Jwts.parser()
+    public String getUserIdFromToken(String token) {
+        Claims claims = Jwts.parserBuilder()
                 .setSigningKey(SECRET_KEY)
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
-        return claims.get("userId", String.class);  // Extract the userId from claims
+
+        return claims.getSubject(); // UUID string
+    }
+
+    // Extract role from the token
+    public String getRoleFromToken(String token) {
+        return getClaims(token).get("role", String.class);
+    }
+
+    public boolean isAdmin(String token) {
+        return "ADMIN".equals(getRoleFromToken(token));
+    }
+
+    public boolean isStaff(String token) {
+        return "STAFF".equals(getRoleFromToken(token));
     }
 
     // Optional: Extract the username (email in this case) from the token
@@ -60,5 +76,13 @@ public class JwtUtil {
                 .parseClaimsJws(token)
                 .getBody();
         return claims.getSubject();  // Get the subject (email)
+    }
+
+    private Claims getClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(SECRET_KEY)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 }

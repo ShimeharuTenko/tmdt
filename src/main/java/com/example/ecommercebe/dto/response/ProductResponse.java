@@ -9,12 +9,14 @@ public class ProductResponse {
     private String name;
     private String slug;
     private String sku;
-    private BigDecimal price;
+    private Double price;
     private Boolean isPublished;
     private String shortDescription;
     private List<String> images;
     private List<ProductVariantResponse> variants;
     private String thumbnail;
+
+    private Integer stock;
 
     // GETTERS
 
@@ -22,7 +24,7 @@ public class ProductResponse {
     public String getName() { return name; }
     public String getSlug() { return slug; }
     public String getSku() { return sku; }
-    public BigDecimal getPrice() { return price; }
+    public Double getPrice() { return price; }
     public Boolean getIsPublished() { return isPublished; }
     public String getShortDescription() { return shortDescription; }
     public List<String> getImages() { return images; }
@@ -34,7 +36,7 @@ public class ProductResponse {
     public void setName(String name) { this.name = name; }
     public void setSlug(String slug) { this.slug = slug; }
     public void setSku(String sku) { this.sku = sku; }
-    public void setPrice(BigDecimal price) { this.price = price; }
+    public void setPrice(Double price) { this.price = price; }
     public void setIsPublished(Boolean isPublished) { this.isPublished = isPublished; }
     public void setShortDescription(String shortDescription) { this.shortDescription = shortDescription; }
     public void setImages(List<String> images) { this.images = images; }
@@ -54,5 +56,13 @@ public class ProductResponse {
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 }

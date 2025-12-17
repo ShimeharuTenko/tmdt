@@ -2,12 +2,15 @@ package com.example.ecommercebe.service;
 
 import com.example.ecommercebe.dto.request.LoginRequestDTO;
 import com.example.ecommercebe.dto.request.RegisterRequestDTO;
+import com.example.ecommercebe.dto.response.LoginResponseDTO;
 import com.example.ecommercebe.model.User;
 import com.example.ecommercebe.repository.UserRepository;
 import com.example.ecommercebe.security.JwtUtil;
 import com.example.ecommercebe.security.PasswordEncoderUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service
 public class AuthService {
@@ -44,26 +47,44 @@ public class AuthService {
 
 
     // Login with Email service layer
-    public ResponseEntity<String> loginUser(LoginRequestDTO request) {
-        // Try to find user by email first
+    public ResponseEntity<?> loginUser(LoginRequestDTO request) {
+
+        // 1. Tìm user theo email
         User user = userRepository.findByEmail(request.getEmail()).orElse(null);
 
-        // If not found by email, try phone number
+        // 2. Nếu không có thì tìm theo phone
         if (user == null) {
             user = userRepository.findByPhone(request.getEmail()).orElse(null);
         }
 
         if (user == null) {
-            return ResponseEntity.badRequest().body("Invalid email or phone number");
+            return ResponseEntity
+                    .badRequest()
+                    .body(Map.of("message", "Invalid email or phone number"));
         }
 
         if (!passwordEncoderUtil.matches(request.getPassword(), user.getPassword())) {
-            return ResponseEntity.badRequest().body("Invalid password");
+            return ResponseEntity
+                    .badRequest()
+                    .body(Map.of("message", "Invalid password"));
         }
 
-        String token = jwtUtil.generateToken(user.getId());
-        return ResponseEntity.ok(token);
+        // 3. Generate JWT
+        String token = jwtUtil.generateToken(
+                user.getId().toString(),
+                user.getRole().name() // ADMIN / STAFF / CUSTOMER
+        );
+
+        // 4. Trả JSON
+        return ResponseEntity.ok(
+                Map.of(
+                        "token", token,
+                        "userId", user.getId(),
+                        "email", user.getEmail()
+                )
+        );
     }
+
 
 
 }

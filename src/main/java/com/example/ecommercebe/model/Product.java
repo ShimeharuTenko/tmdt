@@ -33,7 +33,7 @@ public class Product {
     @Lob
     private String description;
 
-    private BigDecimal price;
+    private Double price;
 
     @Column(name = "is_published")
     private Boolean isPublished = true;
@@ -49,6 +49,10 @@ public class Product {
 
     @Column(name = "thumbnail", length = 1024)
     private String thumbnail;
+
+    @Column(name = "stock")
+    private Integer stock;
+
 
     // Relationships
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
@@ -73,7 +77,7 @@ public class Product {
 
     public Product(String id, String name, String slug, String sku,
                    String categoryId, String shortDescription,
-                   String description, BigDecimal price,
+                   String description, Double price,
                    Boolean isPublished, String createdBy,
                    LocalDateTime createdAt, LocalDateTime updatedAt,
                    List<ProductImage> images,
@@ -158,11 +162,11 @@ public class Product {
         this.description = description;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -236,5 +240,13 @@ public class Product {
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 }
